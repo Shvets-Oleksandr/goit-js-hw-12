@@ -1,24 +1,21 @@
 'use strict'
 
-const baseUrl ='https://pixabay.com';
+import axios from 'axios';
 
-export const fetchImg = (searchQuery) => {
+axios.defaults.baseURL ='https://pixabay.com/api/';
 
-    const urlParams = new URLSearchParams ({
-        q: searchQuery,
-        image_type: 'photo',
-        orientation: 'horizontal',
-        safesearch: true,
-        key: '45444033-7a199cc8ba7e30bdfbfaa3141',
+export const axiosImg = (searchQuery) => {
 
-    })
+    const axiosParams = {
+        params: {
+            q: searchQuery,
+            image_type: 'photo',
+            orientation: 'horizontal',
+            safesearch: true,
+            key: '45444033-7a199cc8ba7e30bdfbfaa3141',
+        },
+    }
 
-    return fetch(`${baseUrl}/api/?${urlParams}`)
-     .then(response => {
-            if (!response.ok) {
-                throw new Error(response.status);
-            }
-            return response.json();
-        })
-}
+    return axios.get('', axiosParams);
+};
 
