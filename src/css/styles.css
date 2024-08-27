@@ -13,7 +13,10 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 36px 156px;
+  padding-bottom: 10px;
+  padding-left: 156px;
+  padding-right: 156px;
+  padding-top: 36px;
   background-color: #fafafa;
   line-height: 1.5;
   letter-spacing: 0.04em;

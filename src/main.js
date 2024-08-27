@@ -16,6 +16,9 @@ const loadMoreBtnEl = document.querySelector('.js-load-more-button');
 let curentPage = 33;
 let searchValue = '';
 let lightbox;
+let cardHeight = 0;
+let totalPages = 1;
+let quantityCardBySubmmit = 15;
 
 const onSearchFormSubmit = async (event) => {
 
@@ -55,13 +58,31 @@ const onSearchFormSubmit = async (event) => {
             return;
         }
 
+        quantityCardBySubmmit = response.data.hits.length;
+
+        totalPages = Math.ceil(response.data.totalHits / quantityCardBySubmmit);
+
         const galleryImgTemplate = response.data.hits.map(cardDetais => createGalleryCardTemplate(cardDetais)).join('');
 
         loaderEl.classList.add('is-hidden');
 
         galleryEl.innerHTML = galleryImgTemplate;
 
-        loadMoreBtnEl.classList.remove('is-hidden');
+        const galleryCardEl = galleryEl.querySelector('li');
+
+        cardHeight = galleryCardEl.getBoundingClientRect().height;
+
+
+        if (curentPage === totalPages) {
+            loadMoreBtnEl.classList.add('is-hidden');
+            iziToast.info({
+                message: "This is the maximum search result for your query.",
+                position: 'bottomCenter',
+            });
+        } else {
+            loadMoreBtnEl.classList.remove('is-hidden');
+        }
+
            
 
         if (!lightbox) {
@@ -111,10 +132,15 @@ const onLoadMoreBtnClick = async (event) => {
 
         lightbox.refresh();
 
+        scrollBy({
+            top: cardHeight * 2,
+            behavior: "smooth",
+        });
+
         loadMoreBtnEl.classList.remove('is-hidden');
 
 
-        if (curentPage >= response.data.totalHits) {
+        if (curentPage >= totalPages) {
             loadMoreBtnEl.classList.add('is-hidden');
             iziToast.info({
                 message: "We're sorry, but you've reached the end of search results.",
