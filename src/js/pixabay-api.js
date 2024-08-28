@@ -4,7 +4,7 @@ import axios from 'axios';
 
 axios.defaults.baseURL ='https://pixabay.com/api/';
 
-export const axiosImg = (searchQuery, page) => {
+export const axiosImg = async (searchQuery, page) => {
 
     const axiosParams = {
         params: {
@@ -18,6 +18,8 @@ export const axiosImg = (searchQuery, page) => {
         },
     }
 
-    return axios.get('', axiosParams);
+    const response = await axios.get('', axiosParams);
+
+    return response;
 };
 

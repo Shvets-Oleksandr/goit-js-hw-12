@@ -13,7 +13,7 @@ const loaderEl = document.querySelector('.js-loader');
 const loadMoreBtnEl = document.querySelector('.js-load-more-button');
 
 
-let curentPage = 33;
+let curentPage = 1;
 let searchValue = '';
 let lightbox;
 let cardHeight = 0;
